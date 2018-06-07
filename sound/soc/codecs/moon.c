@@ -28,6 +28,7 @@
 
 #include <linux/mfd/arizona/core.h>
 #include <linux/mfd/arizona/registers.h>
+#include <linux/mfd/arizona/control.h>
 
 #include "arizona.h"
 #include "wm_adsp.h"
@@ -3000,6 +3001,8 @@ static int moon_codec_probe(struct snd_soc_codec *codec)
 			ret);
 		goto err_spk_prot;
 	}
+
+	arizona_control_init(codec);
 
 	return 0;
 

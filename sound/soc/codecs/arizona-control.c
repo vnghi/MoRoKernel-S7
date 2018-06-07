@@ -5,6 +5,7 @@
  * @Date	: June 2013 	- Arizona original implementation.
  * 		: December 2014	- Florida impl.
  * 		: August 2015 	- Clearwater impl.
+ * 		: June 2018  - Moon impl.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -77,9 +78,9 @@ struct arizona_control {
 
 #define _write(reg, regval)	\
 	ignore_next = true;	\
-	codec->write(codec, reg, regval);
+	snd_soc_write(codec, reg, regval);
 
-#define _read(reg) codec->read(codec, reg)
+#define _read(reg) snd_soc_read(codec, reg)
 
 static inline void _ctl_set(struct arizona_control *ctl, int val)
 {

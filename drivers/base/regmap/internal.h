@@ -49,10 +49,8 @@ struct regmap_async {
 };
 
 struct regmap {
-	union {
-		struct mutex mutex;
-		spinlock_t spinlock;
-	};
+	struct mutex mutex;
+	spinlock_t spinlock;
 	unsigned long spinlock_flags;
 	regmap_lock lock;
 	regmap_unlock unlock;
