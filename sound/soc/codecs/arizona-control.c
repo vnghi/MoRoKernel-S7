@@ -19,9 +19,9 @@
 #include <linux/mfd/arizona/registers.h>
 #include <linux/mfd/arizona/control.h>
 
-#if 0
+
 #define DEBUG
-#endif
+
 
 #define NOT_INIT		123456
 #define DEF_HP_MEDIA_VOL	113
