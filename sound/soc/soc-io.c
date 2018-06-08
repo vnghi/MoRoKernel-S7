@@ -16,6 +16,7 @@
 #include <linux/regmap.h>
 #include <linux/export.h>
 #include <sound/soc.h>
+#include <linux/mfd/arizona/registers.h>
 
 /**
  * snd_soc_component_read() - Read register value
@@ -209,6 +210,13 @@ EXPORT_SYMBOL_GPL(snd_soc_read);
 int snd_soc_write(struct snd_soc_codec *codec, unsigned int reg,
 	unsigned int val)
 {
+	char caller[80];
+	sprintf(caller, "%ps", __builtin_return_address(0));
+	if ((		reg == ARIZONA_DAC_DIGITAL_VOLUME_1L ||
+			reg == ARIZONA_DAC_DIGITAL_VOLUME_1R) &&
+			strcmp("store_arizona_property", caller) != 0) {
+		return 0;
+	}
 	return snd_soc_component_write(&codec->component, reg, val);
 }
 EXPORT_SYMBOL_GPL(snd_soc_write);
@@ -227,6 +235,13 @@ EXPORT_SYMBOL_GPL(snd_soc_write);
 int snd_soc_update_bits(struct snd_soc_codec *codec, unsigned int reg,
 				unsigned int mask, unsigned int value)
 {
+	char caller[80];
+	sprintf(caller, "%ps", __builtin_return_address(0));
+	if ((		reg == ARIZONA_DAC_DIGITAL_VOLUME_1L ||
+			reg == ARIZONA_DAC_DIGITAL_VOLUME_1R) &&
+			strcmp("store_arizona_property", caller) != 0) {
+		return 0;
+	}
 	return snd_soc_component_update_bits(&codec->component, reg, mask,
 		value);
 }
